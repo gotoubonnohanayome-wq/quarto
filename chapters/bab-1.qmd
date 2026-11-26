@@ -52,3 +52,97 @@ Jika mesin benar (μ = 250), maka menurut CLT ̄x ∼ N(250, 6/√
 36 = 1). Kita lihat seberapa
 
 “jauh” 247,6 dari distribusi tersebut:
+
+
+```{r}
+# Simulasi Distribusi Sampling Rata-rata
+
+mu0 <- 250
+sigma <- 6
+n <- 36
+xbar <- 247.6
+
+# Menghitung Standard Error
+se <- sigma / sqrt(n)
+
+# Simulasi distribusi sampling jika H0 benar
+set.seed(10)
+
+xbar_jika_H0 <- replicate(
+  100000,
+  mean(rnorm(n, mean = mu0, sd = sigma))
+)
+
+# Membuat histogram
+hist(
+  xbar_jika_H0,
+  breaks = 60,
+  col = "#c6dbef",
+  border = "white",
+  freq = FALSE,
+  main = "Distribusi x-bar jika mesin bekerja benar (mu = 250)",
+  xlab = "Rata-rata 36 kemasan (gram)"
+)
+
+# Menambahkan garis rata-rata sampel dan posisi simetris
+abline(
+  v = c(xbar, 2 * mu0 - xbar),
+  col = "firebrick",
+  lwd = 2,
+  lty = c(1, 2)
+)
+```
+```{r}
+mean(abs(xbar_jika_H0 - mu0) >= abs(xbar - mu0)) # seberapa sering selisih sebesar ini terjadi
+```
+
+Jika mesin benar, rata-rata yang meleset 2,4 gram atau lebih (ke arah mana pun) hanya terjadi
+sekitar 1.6% dari waktu. Angka inilah yang disebut p-value. Karena sangat jarang, kita punya
+alasan kuat untuk meragukan bahwa mesin bekerja benar.
+
+## Merumuskan Hipotesis
+
+### Hipotesis Nol dan Alternatif
+
+
+```{r}
+# Tabel Perbandingan Hipotesis Nol dan Hipotesis Alternatif
+
+library(knitr)
+
+hipotesis <- data.frame(
+  Aspek = c(
+    "Isi",
+    "Tanda",
+    "Posisi dalam uji"
+  ),
+
+  `Hipotesis Nol (H0)` = c(
+    "Tidak ada efek, perbedaan, atau perubahan; status quo",
+    "Selalu memuat kesamaan: =, <=, atau >=",
+    "Diasumsikan benar selama perhitungan"
+  ),
+
+  `Hipotesis Alternatif (H1 atau Ha)` = c(
+    "Klaim yang ingin dibuktikan peneliti",
+    "Tidak sama dengan (≠), lebih besar (>), atau lebih kecil (<)",
+    "Didukung jika terdapat bukti statistik yang cukup kuat"
+  ),
+
+  check.names = FALSE
+)
+
+knitr::kable(
+  hipotesis,
+  caption = "Perbandingan Hipotesis Nol dan Hipotesis Alternatif",
+  align = "l",
+  booktabs = TRUE
+)
+```
+
+Aturan penting: hipotesis selalu dinyatakan tentang parameter populasi (μ, p, σ), bukan
+statistik sampel. Menulis “H0
+
+∶ ̄x = 250” adalah keliru, karena ̄x sudah kita ketahui.
+
+### Tiga Bentuk Hipotesis
