@@ -1,49 +1,54 @@
 # Pertemuan 10: Konsep dan Uji Hipotesis
 
-## Pendahuluan
+## Logika Uji Hipotesis
 
-aku sayang banget sama kamu
 
 ```{r}
-
-# Tabel Distribusi Populasi, Sampel, dan Sampling
+# Tabel Pengadilan Uji Hipotesis
 
 library(knitr)
 
-tabel_distribusi <- data.frame(
-  Distribusi = c(
-    "Distribusi populasi",
-    "Distribusi sampel",
-    "Distribusi sampling"
+pengadilan <- data.frame(
+  Pengadilan = c(
+    "Praduga tak bersalah",
+    "Tuduhan jaksa",
+    "Bukti di persidangan",
+    "Standar tanpa keraguan yang wajar",
+    "Putusan bersalah",
+    "Putusan tidak terbukti bersalah",
+    "Menghukum orang tak bersalah",
+    "Membebaskan orang bersalah"
   ),
 
-  Isinya = c(
-    "Nilai setiap unit populasi",
-    "Nilai unit dalam satu sampel",
-    "Nilai statistik (misalnya x-bar) dari banyak sampel"
-  ),
-
-  `Jumlah nilai` = c(
-    "N",
-    "n",
-    "Sebanyak sampel yang (dibayangkan) diambil"
-  ),
-
-  Contoh = c(
-    "Pengeluaran 20.000 mahasiswa",
-    "Pengeluaran 40 mahasiswa yang disurvei",
-    "x-bar dari 10.000 sampel berukuran 40"
+  `Uji Hipotesis` = c(
+    "H0 diasumsikan benar",
+    "H1 (klaim yang ingin dibuktikan)",
+    "Data sampel dan statistik uji",
+    "Tingkat signifikansi (α)",
+    "Tolak H0",
+    "Gagal menolak H0 (bukan menerima H0)",
+    "Kesalahan Tipe I",
+    "Kesalahan Tipe II"
   ),
 
   check.names = FALSE
 )
 
-# Menampilkan tabel
 knitr::kable(
-  tabel_distribusi,
-  caption = "Perbedaan Distribusi Populasi, Sampel, dan Sampling",
-  align = c("l", "l", "l", "l"),
-  row.names = FALSE
+  pengadilan,
+  caption = "Analogi Pengadilan dalam Uji Hipotesis",
+  col.names = c("Pengadilan", "Uji Hipotesis"),
+  align = c("l", "l"),
+  booktabs = TRUE
 )
-
 ```
+
+### Ilustrasi: Apakah Mesin Pengisi Masih Tepat?
+Melanjutkan latihan Pertemuan 9: mesin kopi bubuk seharusnya mengisi rata-rata 250 gram
+dengan σ = 6 gram. Sampel 36 kemasan menghasilkan ̄x = 247,6 gram. Apakah mesin perlu
+dikalibrasi, atau selisih 2,4 gram itu sekadar kebetulan sampling?
+Jika mesin benar (μ = 250), maka menurut CLT ̄x ∼ N(250, 6/√
+
+36 = 1). Kita lihat seberapa
+
+“jauh” 247,6 dari distribusi tersebut:
