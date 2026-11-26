@@ -42,11 +42,11 @@
   {
     "objectID": "chapters/bab-1.html",
     "href": "chapters/bab-1.html",
-    "title": "1  Distribusi Sampling",
+    "title": "1  Pertemuan 10: Konsep dan Uji Hipotesis",
     "section": "",
-    "text": "1.1 Pendahuluan",
+    "text": "1.1 Pendahuluan\naku sayang banget sama kamu\n# Tabel Distribusi Populasi, Sampel, dan Sampling\n\nlibrary(knitr)\n\ntabel_distribusi &lt;- data.frame(\n  Distribusi = c(\n    \"Distribusi populasi\",\n    \"Distribusi sampel\",\n    \"Distribusi sampling\"\n  ),\n\n  Isinya = c(\n    \"Nilai setiap unit populasi\",\n    \"Nilai unit dalam satu sampel\",\n    \"Nilai statistik (misalnya x-bar) dari banyak sampel\"\n  ),\n\n  `Jumlah nilai` = c(\n    \"N\",\n    \"n\",\n    \"Sebanyak sampel yang (dibayangkan) diambil\"\n  ),\n\n  Contoh = c(\n    \"Pengeluaran 20.000 mahasiswa\",\n    \"Pengeluaran 40 mahasiswa yang disurvei\",\n    \"x-bar dari 10.000 sampel berukuran 40\"\n  ),\n\n  check.names = FALSE\n)\n\n# Menampilkan tabel\nknitr::kable(\n  tabel_distribusi,\n  caption = \"Perbedaan Distribusi Populasi, Sampel, dan Sampling\",\n  align = c(\"l\", \"l\", \"l\", \"l\"),\n  row.names = FALSE\n)\n\n\nPerbedaan Distribusi Populasi, Sampel, dan Sampling\n\n\n\n\n\n\n\n\nDistribusi\nIsinya\nJumlah nilai\nContoh\n\n\n\n\nDistribusi populasi\nNilai setiap unit populasi\nN\nPengeluaran 20.000 mahasiswa\n\n\nDistribusi sampel\nNilai unit dalam satu sampel\nn\nPengeluaran 40 mahasiswa yang disurvei\n\n\nDistribusi sampling\nNilai statistik (misalnya x-bar) dari banyak sampel\nSebanyak sampel yang (dibayangkan) diambil\nx-bar dari 10.000 sampel berukuran 40",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Distribusi Sampling</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Pertemuan 10: Konsep dan Uji Hipotesis</span>"
     ]
   },
   {

@@ -1,3 +1,49 @@
-# Distribusi Sampling
+# Pertemuan 10: Konsep dan Uji Hipotesis
 
 ## Pendahuluan
+
+aku sayang banget sama kamu
+
+```{r}
+
+# Tabel Distribusi Populasi, Sampel, dan Sampling
+
+library(knitr)
+
+tabel_distribusi <- data.frame(
+  Distribusi = c(
+    "Distribusi populasi",
+    "Distribusi sampel",
+    "Distribusi sampling"
+  ),
+
+  Isinya = c(
+    "Nilai setiap unit populasi",
+    "Nilai unit dalam satu sampel",
+    "Nilai statistik (misalnya x-bar) dari banyak sampel"
+  ),
+
+  `Jumlah nilai` = c(
+    "N",
+    "n",
+    "Sebanyak sampel yang (dibayangkan) diambil"
+  ),
+
+  Contoh = c(
+    "Pengeluaran 20.000 mahasiswa",
+    "Pengeluaran 40 mahasiswa yang disurvei",
+    "x-bar dari 10.000 sampel berukuran 40"
+  ),
+
+  check.names = FALSE
+)
+
+# Menampilkan tabel
+knitr::kable(
+  tabel_distribusi,
+  caption = "Perbedaan Distribusi Populasi, Sampel, dan Sampling",
+  align = c("l", "l", "l", "l"),
+  row.names = FALSE
+)
+
+```
