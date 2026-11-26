@@ -141,8 +141,383 @@ knitr::kable(
 ```
 
 Aturan penting: hipotesis selalu dinyatakan tentang parameter populasi (μ, p, σ), bukan
-statistik sampel. Menulis “H0
-
-∶ ̄x = 250” adalah keliru, karena ̄x sudah kita ketahui.
+statistik sampel. Menulis “H0∶ ̄x = 250” adalah keliru, karena ̄x sudah kita ketahui.
 
 ### Tiga Bentuk Hipotesis
+
+
+```{r}
+# Tabel Bentuk Pengujian Hipotesis
+
+library(knitr)
+
+bentuk_hipotesis <- data.frame(
+  Bentuk = c(
+    "Dua arah",
+    "Satu arah kanan",
+    "Satu arah kiri"
+  ),
+
+  H0 = c(
+    "μ = μ0",
+    "μ <= μ0",
+    "μ >= μ0"
+  ),
+
+  H1 = c(
+    "μ != μ0",
+    "μ > μ0",
+    "μ < μ0"
+  ),
+
+  `Daerah Penolakan` = c(
+    "Kedua ekor",
+    "Ekor kanan",
+    "Ekor kiri"
+  ),
+
+  `Contoh Pertanyaan` = c(
+    "Apakah rata-rata pengisian berbeda dari 250 g?",
+    "Apakah rata-rata TSS melebihi baku mutu?",
+    "Apakah umur baterai kurang dari klaim 20 jam?"
+  ),
+
+  check.names = FALSE
+)
+
+knitr::kable(
+  bentuk_hipotesis,
+  caption = "Bentuk Pengujian Hipotesis",
+  align = c("l", "c", "c", "c", "l"),
+  booktabs = TRUE
+)
+```
+
+### Menerjemahkan Kalimat Menjadi Hipotesis
+
+
+```{r} id="k3m8qa"
+# Tabel Kata Kunci dalam Klaim Hipotesis
+
+library(knitr)
+
+kata_kunci <- data.frame(
+  `Kata Kunci dalam Klaim` = c(
+    "Berbeda, berubah, tidak sama",
+    "Lebih dari, meningkat, melebihi, lebih baik",
+    "Kurang dari, menurun, lebih rendah, lebih cepat (waktu)"
+  ),
+
+  `Tanda di H1` = c(
+    "≠",
+    ">",
+    "<"
+  ),
+
+  check.names = FALSE
+)
+
+knitr::kable(
+  kata_kunci,
+  caption = "Kata Kunci dalam Klaim dan Tanda Hipotesis Alternatif",
+  align = c("l", "c"),
+  booktabs = TRUE
+)
+```
+
+Tentukan arah sebelum melihat data. Memilih uji satu arah setelah melihat arah
+selisih pada data adalah kecurangan: p-value menjadi separuhnya secara tidak sah. Jika
+ragu, gunakan uji dua arah.
+
+## Komponen Uji Hipotesis
+
+### Tingkat Signifikansi (α)
+α adalah batas peluang kesalahan Tipe I yang bersedia kita tanggung – peluang menolak H0
+padahal H0 benar. Nilai yang umum: 0,05; 0,01; atau 0,10. α ditetapkan sebelum data dianalisis,
+berdasarkan seberapa mahal akibat kesalahan Tipe I.
+
+### Statistik Uji
+
+Statistik uji mengukur seberapa jauh estimasi sampel dari nilai H0, dalam satuan standard error:
+
+Statistik uji = \\(\dfrac{\text{estimasi – nilai di } H_0}{SE}\\)
+
+\\[ z = \frac{\bar{x}-\mu_0}{\sigma/\sqrt{n}} \\]
+
+```{r}
+z_hitung <- (xbar - mu0) / se
+z_hitung
+```
+
+Rata-rata sampel berada 2.4 standard error di bawah nilai yang diklaim.
+
+### Nilai Kritis dan Daerah Penolakan
+
+Nilai kritis adalah batas yang memisahkan daerah “tidak mengejutkan” dan daerah penolakan,
+ditentukan oleh α dan arah uji.
+
+```{r}
+alpha <- 0.05
+c(Dua_arah = qnorm(1 - alpha / 2), Kanan = qnorm(1 - alpha), Kiri = qnorm(alpha))
+```
+
+```{r}
+gambar_daerah <- function(arah, judul, alpha = 0.05) {
+x <- seq(-4, 4, length.out = 400)
+plot(x, dnorm(x), type = "l", lwd = 2, main = judul, xlab = "z", ylab = "", yaxt = "n")
+arsir <- function(a, b) polygon(c(a, seq(a, b, length.out = 100), b),
+c(0, dnorm(seq(a, b, length.out = 100)), 0),
+col = rgb(0.8, 0.2, 0.2, 0.5), border = NA)
+if (arah == "dua") { k <- qnorm(1 - alpha / 2); arsir(-4, -k); arsir(k, 4) }
+if (arah == "kanan") { k <- qnorm(1 - alpha); arsir(k, 4) }
+if (arah == "kiri") { k <- qnorm(alpha); arsir(-4, k) }
+}
+par(mfrow = c(1, 3))
+gambar_daerah("dua", "Dua arah (1,96)")
+gambar_daerah("kanan", "Kanan (1,645)")
+gambar_daerah("kiri", "Kiri (-1,645)")
+```
+
+```{r}
+par(mfrow = c(1, 1))
+```
+
+Daerah merah adalah daerah penolakan, luasnya α = 0,05. Pada uji dua arah, α dibagi dua ke
+kedua ekor.
+
+### P-Value
+
+P-value adalah peluang memperoleh statistik uji seekstrem atau lebih ekstrem
+daripada yang teramati, dengan asumsi H0 benar.
+
+
+```{r}
+# Tabel Arah Uji dan P-value
+
+library(knitr)
+
+arah_uji <- data.frame(
+  `Arah Uji` = c(
+    "Dua arah",
+    "Kanan",
+    "Kiri"
+  ),
+
+  `P-value` = c(
+    "2 × P(Z >= |z|)",
+    "P(Z >= z)",
+    "P(Z <= z)"
+  ),
+
+  check.names = FALSE
+)
+
+knitr::kable(
+  arah_uji,
+  caption = "Arah Uji dan Perhitungan P-value",
+  align = c("l", "c"),
+  booktabs = TRUE
+)
+```
+
+```{r}
+p_dua <- 2 * (1 - pnorm(abs(z_hitung)))
+p_dua
+```
+
+```{r}
+x <- seq(-4, 4, length.out = 400)
+plot(x, dnorm(x), type = "l", lwd = 2, xlab = "z", ylab = "", yaxt = "n",
+main = paste0("P-value dua arah = luas kedua ekor = ", round(p_dua, 4)))
+for (bts in list(c(-4, -abs(z_hitung)), c(abs(z_hitung), 4))) {
+xs <- seq(bts[1], bts[2], length.out = 100)
+polygon(c(bts[1], xs, bts[2]), c(0, dnorm(xs), 0), col = rgb(0.2, 0.4, 0.8, 0.5), border = NA)
+}
+abline(v = c(-1.96, 1.96), lty = 2, col = "firebrick")
+text(z_hitung, 0.12, labels = paste0("z = ", z_hitung), pos = 2)
+```
+
+### Keputusan: Dua Pendekatan yang Setara
+
+
+```{r} id="n7x4kp"
+# Tabel Pendekatan Keputusan Uji Hipotesis
+
+library(knitr)
+
+pendekatan <- data.frame(
+  Pendekatan = c(
+    "Nilai kritis",
+    "P-value"
+  ),
+
+  `Aturan Tolak H0` = c(
+    "Statistik uji jatuh di daerah penolakan",
+    "P-value <= alpha"
+  ),
+
+  `Contoh Mesin Kopi` = c(
+    "|z| = 2,4 > 1,96 => Tolak H0",
+    "0,0164 <= 0,05 => Tolak H0"
+  ),
+
+  check.names = FALSE
+)
+
+knitr::kable(
+  pendekatan,
+  caption = "Pendekatan Keputusan Uji Hipotesis pada Mesin Kopi",
+  align = c("l", "l", "l"),
+  booktabs = TRUE
+)
+```
+
+Kedua pendekatan selalu memberi keputusan yang sama. Pendekatan p-value lebih informatif
+karena menunjukkan seberapa kuat buktinya, bukan sekadar lolos atau tidak.
+
+
+```{r} id="pval82"
+# Tabel P-value dan Kekuatan Bukti Melawan H0
+
+library(knitr)
+
+p_value <- data.frame(
+  `P-value` = c(
+    "> 0,10",
+    "0,05 - 0,10",
+    "0,01 - 0,05",
+    "< 0,01"
+  ),
+
+  `Kekuatan Bukti Melawan H0` = c(
+    "Lemah / tidak ada",
+    "Lemah - sedang",
+    "Cukup kuat",
+    "Sangat kuat"
+  ),
+
+  check.names = FALSE
+)
+
+knitr::kable(
+  p_value,
+  caption = "Pedoman Kekuatan Bukti Berdasarkan P-value",
+  align = c("c", "l"),
+  booktabs = TRUE
+)
+```
+
+“Gagal menolak H0” tidak sama dengan “H0 benar”. Sama seperti “tidak terbukti
+bersalah” tidak berarti “terbukti tidak bersalah”. Bisa jadi efeknya memang ada tetapi
+sampel kita terlalu kecil untuk mendeteksinya.
+
+## Prosedur Lima Langkah
+
+
+```{r}
+# Tabel Langkah-Langkah Pengujian Hipotesis
+
+library(knitr)
+
+langkah_hipotesis <- data.frame(
+  Langkah = c(
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+  ),
+
+  Isi = c(
+    "Rumuskan H0 dan H1 (tentukan arah)",
+    "Tetapkan tingkat signifikansi (α)",
+    "Pilih uji yang sesuai, periksa asumsi, hitung statistik uji",
+    "Tentukan nilai kritis dan/atau p-value, ambil keputusan",
+    "Tulis kesimpulan dalam konteks masalah (bukan sekadar 'tolak H0')"
+  ),
+
+  check.names = FALSE
+)
+
+knitr::kable(
+  langkah_hipotesis,
+  caption = "Langkah-Langkah Pengujian Hipotesis",
+  align = c("c", "l"),
+  booktabs = TRUE
+)
+```
+
+Kita bungkus perhitungan uji z satu sampel dalam sebuah fungsi agar dapat dipakai ulang.
+
+```{r}
+uji_z <- function(xbar, mu0, sigma, n, arah = c("dua", "kanan", "kiri"), alpha = 0.05) {
+arah <- match.arg(arah)
+z <- (xbar - mu0) / (sigma / sqrt(n))
+p <- switch(arah, dua = 2 * (1 - pnorm(abs(z))), kanan = 1 - pnorm(z), kiri = pnorm(z))
+kritis <- switch(arah, dua = qnorm(1 - alpha / 2), kanan = qnorm(1 - alpha), kiri = qnorm(alpha))
+data.frame(z = round(z, 4), z_kritis = round(kritis, 4), p_value = signif(p, 4),
+keputusan = ifelse(p <= alpha, "Tolak H0", "Gagal menolak H0"))
+
+}
+```
+
+### Contoh 1 (Dua Arah): Mesin Pengisi Kopi
+
+1. H0∶ μ = 250 gram (mesin tepat); H1∶ μ ≠ 250 gram (mesin perlu dikalibrasi).
+2. α = 0,05.
+3. σ diketahui (6 g), n = 36, uji z: z = (247,6 − 250)/1 = −2,4.
+
+```{r}
+uji_z(xbar = 247.6, mu0 = 250, sigma = 6, n = 36, arah = "dua")
+```
+
+4. |z| = 2,4 > 1,96 dan p-value ≈ 0,016 < 0,05 ⇒ tolak H0.
+5. Kesimpulan: pada taraf signifikansi 5%, terdapat bukti yang cukup bahwa rata-rata
+pengisian mesin berbeda dari 250 gram (data menunjukkan cenderung kurang). Mesin
+sebaiknya diperiksa dan dikalibrasi.
+
+### Contoh 2 (Satu Arah Kanan): Klaim Waktu Pengiriman
+
+Sebuah layanan logistik mengklaim rata-rata waktu pengirimannya paling lama 48 jam. Asosi-
+asi konsumen curiga waktunya lebih lama. Data historis menunjukkan σ = 10 jam. Sampel 50
+
+pengiriman menghasilkan ̄x = 50,1 jam.
+1. H0∶ μ ≤ 48 (klaim benar); H1∶ μ > 48 (klaim tidak benar – lebih lama).
+2. α = 0,05.
+
+```{r}
+uji_z(xbar = 50.1, mu0 = 48, sigma = 10, n = 50, arah = "kanan")
+```
+
+Kesimpulan: p-value ≈ 0,069 > 0,05, sehingga gagal menolak H0. Pada taraf 5%, bukti belum
+cukup untuk menyatakan rata-rata waktu pengiriman melebihi 48 jam. Ini tidak membuktikan
+klaim perusahaan benar; dengan p-value 0,07, ada indikasi lemah yang layak ditindaklanjuti dengan
+sampel lebih besar.
+
+Perhatikan: jika asosiasi konsumen memakai uji dua arah, p-value-nya menjadi dua kali lipat
+(sekitar 0,14). Arah uji harus ditentukan dari pertanyaan penelitian sebelum melihat data.
+
+## Hubungan Uji Dua Arah dan Selang Kepercayaan
+
+Uji dua arah dengan taraf α setara dengan memeriksa apakah μ0 berada di dalam selang keper-
+cayaan (1 − α) × 100%:
+
+• μ0 di luar CI 95% ⟺ tolak H0 pada α = 0,05 (dua arah).
+• μ0 di dalam CI 95% ⟺ gagal menolak H0
+
+```{r}
+ci <- 247.6 + c(-1, 1) * qnorm(0.975) * 6 / sqrt(36)
+round(ci, 3)
+```.
+
+```{r}
+250 >= ci[1] & 250 <= ci[2] # FALSE -> 250 di luar selang -> konsisten dengan "tolak H0"
+```
+
+Selang kepercayaan lebih informatif: selain keputusan, ia menunjukkan rentang nilai μ yang
+masuk akal – di sini rata-rata pengisian kemungkinan antara 245.6 dan 249.6 gram, sehingga
+kekurangannya kemungkinan antara 0.4 dan 4.4 gram per kemasan.
+
+## Kesalahan Tipe I, Tipe II, dan Power
+
+### Tabel Keputusan
