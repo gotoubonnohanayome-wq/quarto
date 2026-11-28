@@ -1,7 +1,6 @@
-# Pertemuan 10: Konsep dan Uji Hipotesis
+# practicum 10: Konsep dan Uji Hipotesis
 
 ## Logika Uji Hipotesis
-
 
 ```{r}
 # Tabel Pengadilan Uji Hipotesis
@@ -50,7 +49,6 @@ dengan σ = 6 gram. Sampel 36 kemasan menghasilkan ̄x = 247,6 gram. Apakah mesi
 dikalibrasi, atau selisih 2,4 gram itu sekadar kebetulan sampling?
 Jika mesin benar (μ = 250), maka menurut CLT ̄x ∼ N(250, 6/√36 = 1). Kita lihat seberapa “jauh” 247,6 dari distribusi tersebut:
 
-
 ```{r}
 # Simulasi Distribusi Sampling Rata-rata
 
@@ -89,6 +87,7 @@ abline(
   lty = c(1, 2)
 )
 ```
+
 ```{r}
 mean(abs(xbar_jika_H0 - mu0) >= abs(xbar - mu0)) # seberapa sering selisih sebesar ini terjadi
 ```
@@ -98,7 +97,6 @@ Jika mesin benar, rata-rata yang meleset 2,4 gram atau lebih (ke arah mana pun) 
 ## Merumuskan Hipotesis
 
 ### Hipotesis Nol dan Alternatif
-
 
 ```{r}
 # Tabel Perbandingan Hipotesis Nol dan Hipotesis Alternatif
@@ -189,8 +187,6 @@ knitr::kable(
 
 ### Menerjemahkan Kalimat Menjadi Hipotesis
 
-
-
 ```{r}
 # Tabel Kata Kunci dalam Klaim Hipotesis
 
@@ -218,7 +214,6 @@ knitr::kable(
   booktabs = TRUE
 )
 ```
-
 
 Tentukan arah sebelum melihat data. Memilih uji satu arah setelah melihat arah
 selisih pada data adalah kecurangan: p-value menjadi separuhnya secara tidak sah. Jika
@@ -248,8 +243,7 @@ Rata-rata sampel berada 2.4 standard error di bawah nilai yang diklaim.
 
 ### Nilai Kritis dan Daerah Penolakan
 
-Nilai kritis adalah batas yang memisahkan daerah “tidak mengejutkan” dan daerah penolakan,
-ditentukan oleh α dan arah uji.
+Nilai kritis adalah batas yang memisahkan daerah “tidak mengejutkan” dan daerah penolakan, ditentukan oleh α dan arah uji.
 
 ```{r}
 alpha <- 0.05
@@ -277,14 +271,11 @@ gambar_daerah("kiri", "Kiri (-1,645)")
 par(mfrow = c(1, 1))
 ```
 
-Daerah merah adalah daerah penolakan, luasnya α = 0,05. Pada uji dua arah, α dibagi dua ke
-kedua ekor.
+Daerah merah adalah daerah penolakan, luasnya α = 0,05. Pada uji dua arah, α dibagi dua ke kedua ekor.
 
 ### P-Value
 
-P-value adalah peluang memperoleh statistik uji seekstrem atau lebih ekstrem
-daripada yang teramati, dengan asumsi H0 benar.
-
+P-value adalah peluang memperoleh statistik uji seekstrem atau lebih ekstrem daripada yang teramati, dengan asumsi H0 benar.
 
 ```{r}
 # Tabel Arah Uji dan P-value
@@ -334,8 +325,6 @@ text(z_hitung, 0.12, labels = paste0("z = ", z_hitung), pos = 2)
 
 ### Keputusan: Dua Pendekatan yang Setara
 
-
-
 ```{r}
 # Tabel Pendekatan Keputusan Uji Hipotesis
 
@@ -373,8 +362,7 @@ knitr::kable(
 )
 ```
 
-Kedua pendekatan selalu memberi keputusan yang sama. Pendekatan p-value lebih informatif
-karena menunjukkan seberapa kuat buktinya, bukan sekadar lolos atau tidak.
+Kedua pendekatan selalu memberi keputusan yang sama. Pendekatan p-value lebih informatif karena menunjukkan seberapa kuat buktinya, bukan sekadar lolos atau tidak.
 
 ```{r}
 # Tabel P-value dan Kekuatan Bukti Melawan H0
@@ -466,15 +454,15 @@ uji_z(xbar = 247.6, mu0 = 250, sigma = 6, n = 36, arah = "dua")
 ```
 
 4. |z| = 2,4 > 1,96 dan p-value ≈ 0,016 < 0,05 ⇒ tolak H0.
+
 5. Kesimpulan: pada taraf signifikansi 5%, terdapat bukti yang cukup bahwa rata-rata
 pengisian mesin berbeda dari 250 gram (data menunjukkan cenderung kurang). Mesin
 sebaiknya diperiksa dan dikalibrasi.
 
 ### Contoh 2 (Satu Arah Kanan): Klaim Waktu Pengiriman
 
-Sebuah layanan logistik mengklaim rata-rata waktu pengirimannya paling lama 48 jam. Asosiasi konsumen curiga waktunya lebih lama. Data historis menunjukkan σ = 10 jam. Sampel 50
+Sebuah layanan logistik mengklaim rata-rata waktu pengirimannya paling lama 48 jam. Asosiasi konsumen curiga waktunya lebih lama. Data historis menunjukkan σ = 10 jam. Sampel 50 pengiriman menghasilkan ̄x = 50,1 jam.
 
-pengiriman menghasilkan ̄x = 50,1 jam.
 1. H0∶ μ ≤ 48 (klaim benar); H1∶ μ > 48 (klaim tidak benar – lebih lama).
 2. α = 0,05.
 
@@ -485,14 +473,14 @@ uji_z(xbar = 50.1, mu0 = 48, sigma = 10, n = 50, arah = "kanan")
 Kesimpulan: p-value ≈ 0,069 > 0,05, sehingga gagal menolak H0. Pada taraf 5%, bukti belumcukup untuk menyatakan rata-rata waktu pengiriman melebihi 48 jam. Ini tidak membuktikan klaim perusahaan benar; dengan p-value 0,07, ada indikasi lemah yang layak ditindaklanjuti dengan
 sampel lebih besar.
 
-Perhatikan: jika asosiasi konsumen memakai uji dua arah, p-value-nya menjadi dua kali lipat
-(sekitar 0,14). Arah uji harus ditentukan dari pertanyaan penelitian sebelum melihat data.
+Perhatikan: jika asosiasi konsumen memakai uji dua arah, p-value-nya menjadi dua kali lipat (sekitar 0,14). Arah uji harus ditentukan dari pertanyaan penelitian sebelum melihat data.
 
 ## Hubungan Uji Dua Arah dan Selang Kepercayaan
 
 Uji dua arah dengan taraf α setara dengan memeriksa apakah μ0 berada di dalam selang kepercayaan (1 − α) × 100%:
 
 • μ0 di luar CI 95% ⟺ tolak H0 pada α = 0,05 (dua arah).
+
 • μ0 di dalam CI 95% ⟺ gagal menolak H0
 
 ```{r}
@@ -509,3 +497,722 @@ Selang kepercayaan lebih informatif: selain keputusan, ia menunjukkan rentang ni
 ## Kesalahan Tipe I, Tipe II, dan Power
 
 ### Tabel Keputusan
+
+```{r}
+# Tabel Keputusan Hipotesis
+
+library(knitr)
+
+tabel_keputusan <- data.frame(
+  Keputusan = c(
+    "Tolak H0",
+    "Gagal menolak H0"
+  ),
+  `H0 benar` = c(
+    "Kesalahan **Tipe I** (*false positive*), peluang = α",
+    "Keputusan benar, peluang = 1 − α"
+  ),
+  `H0 salah` = c(
+    "Keputusan benar, peluang = **power = 1 − β**",
+    "Kesalahan **Tipe II** (*false negative*), peluang = β"
+  ),
+  check.names = FALSE
+)
+
+knitr::kable(
+  tabel_keputusan,
+  format = "pipe",
+  align = "lll",
+  caption = "Tabel Keputusan Hipotesis",
+  escape = FALSE
+)
+```
+
+```{r}
+
+### 2. Tabel Contoh Kesalahan Tipe I dan Tipe II
+
+# Tabel Contoh Kesalahan Tipe I dan Tipe II
+
+library(knitr)
+
+tabel_kesalahan <- data.frame(
+  Konteks = c(
+    "Mesin pengisi ($H_0$: mesin tepat)",
+    "Tes penyakit ($H_0$: sehat)",
+    "Filter spam ($H_0$: bukan spam)",
+    "Uji A/B ($H_0$: desain baru tidak lebih baik)"
+  ),
+  `Kesalahan Tipe I` = c(
+    "Menghentikan produksi untuk kalibrasi padahal mesin baik",
+    "Orang sehat didiagnosis sakit",
+    "Email penting masuk folder spam",
+    "Meluncurkan desain yang sebenarnya tidak lebih baik"
+  ),
+  `Kesalahan Tipe II` = c(
+    "Mesin terus mengisi kurang; konsumen dirugikan",
+    "Orang sakit tidak terdeteksi",
+    "Spam lolos ke kotak masuk",
+    "Melewatkan desain yang sebenarnya lebih baik"
+  ),
+  check.names = FALSE
+)
+
+knitr::kable(
+  tabel_kesalahan,
+  format = "pipe",
+  align = "lll",
+  caption = "Contoh Kesalahan Tipe I dan Tipe II",
+  escape = FALSE
+)
+```
+
+### Simulasi: Kesalahan Tipe I Terjadi Sekitar α dari Waktu
+
+Jika mesin benar-benar tepat (μ = 250) dan kita menguji 10.000 sampel berbeda, berapa kali
+kita keliru menolak H0?
+
+```{r}
+set.seed(101)
+p_values_H0 <- replicate(10000, {
+x <- rnorm(36, mean = 250, sd = 6)
+z <- (mean(x) - 250) / (6 / 6)
+2 * (1 - pnorm(abs(z)))
+})
+mean(p_values_H0 <= 0.05) # proporsi kesalahan Tipe I
+```
+
+```{r}
+hist(p_values_H0, breaks = 20, col = "#c6dbef", border = "white",
+main = "Distribusi p-value ketika H0 BENAR: seragam", xlab = "p-value", ylab = "Frekuensi")
+abline(v = 0.05, col = "firebrick", lwd = 2)
+```
+
+Ketika H0 benar, p-value tersebar merata antara 0 dan 1; sekitar 5% di antaranya jatuh di bawah
+0,05 murni karena kebetulan. Itulah makna α.
+
+### Simulasi: Kesalahan Tipe II dan Power
+
+Sekarang anggap mesin benar-benar mengisi rata-rata 248 gram (H0 salah). Seberapa sering uji kita mendeteksinya ?
+
+```{r}
+power_sim <- function(mu_benar, n, alpha = 0.05, B = 5000) {
+mean(replicate(B, {
+z <- (mean(rnorm(n, mu_benar, 6)) - 250) / (6 / sqrt(n))
+2 * (1 - pnorm(abs(z))) <= alpha
+}))
+}
+power_teori <- function(mu_benar, n, alpha = 0.05) {
+k <- qnorm(1 - alpha / 2); d <- (mu_benar - 250) / (6 / sqrt(n))
+pnorm(-k - d) + 1 - pnorm(k - d)
+}
+set.seed(102)
+c(Power_simulasi = power_sim(248, 36), Power_teori = round(power_teori(248, 36), 4),
+Beta_teori = round(1 - power_teori(248, 36), 4))
+```
+
+Dengan n = 36, uji hanya mendeteksi selisih 2 gram sekitar 52% dari waktu; sekitar 48% dari waktu mesin yang salah setel lolos (kesalahan Tipe II).
+
+### Kurva Power: Faktor yang Memengaruhi
+
+```{r}
+mu_seq <- seq(245, 255, by = 0.05)
+plot(mu_seq, power_teori(mu_seq, 36), type = "l", lwd = 2, col = "#4C72B0", ylim = c(0, 1),
+xlab = "Rata-rata pengisian sebenarnya (gram)", ylab = "Power = P(tolak H0)",
+main = "Kurva Power Uji Dua Arah (H0: mu = 250)")
+lines(mu_seq, power_teori(mu_seq, 100), lwd = 2, col = "#DD8452")
+lines(mu_seq, power_teori(mu_seq, 36, alpha = 0.01), lwd = 2, lty = 2, col = "#4C72B0")
+abline(h = c(0.05, 0.8), lty = 3, col = "grey50")
+legend("top", bty = "n", lwd = 2, lty = c(1, 1, 2), col = c("#4C72B0", "#DD8452", "#4C72B0"), cex = 0.8,
+legend = c("n = 36, alpha = 0,05", "n = 100, alpha = 0,05", "n = 36, alpha = 0,01"))
+```
+
+```{r}
+# Tabel Faktor yang Memengaruhi Power
+
+library(knitr)
+
+tabel_power <- data.frame(
+  Faktor = c(
+    "Besar efek sebenarnya (|μ − μ₀|)",
+    "Ukuran sampel (n)",
+    "α (taraf signifikansi)",
+    "Variabilitas (σ)"
+  ),
+  `Jika dinaikkan` = c(
+    "Selisih makin besar",
+    "SE mengecil",
+    "Daerah penolakan melebar",
+    "SE membesar"
+  ),
+  Power = c(
+    "Naik",
+    "Naik",
+    "Naik (tetapi risiko Tipe I naik)",
+    "Turun"
+  ),
+  check.names = FALSE
+)
+
+knitr::kable(
+  tabel_power,
+  format = "pipe",
+  align = "lll",
+  caption = "Faktor-Faktor yang Memengaruhi Power",
+  escape = FALSE
+)
+```
+
+Tepat di μ = 250 (saat H0 benar), kurva menyentuh 0,05 = α. Trade-off: memperkecil α (garis putus-putus) mengurangi kesalahan Tipe I tetapi menurunkan power (menambah kesalahan Tipe II). Satu-satunya cara mengurangi keduanya sekaligus adalah memperbesar sampel. Konvensi yang umum dipakai: rancang studi agar power minimal 0,80 untuk efek terkecil yang dianggap penting.
+
+```{r}
+n_power <- function(delta, sigma, alpha = 0.05, power = 0.80) {
+ceiling(((qnorm(1 - alpha / 2) + qnorm(power)) * sigma / delta)^2)
+}
+n_power(delta = 2, sigma = 6) # sampel agar selisih 2 gram terdeteksi dengan power 80%
+```
+
+## Menafsirkan Hasil Uji dengan Bijak
+
+### Signifikansi Statistik vs Signifikansi Praktis
+
+Dengan sampel sangat besar, selisih yang sangat kecil pun menjadi “signifikan secara statistik”.
+
+```{r}
+kable(rbind(
+"n = 36" = uji_z(xbar = 249.8, mu0 = 250, sigma = 6, n = 36),
+"n = 100.000" = uji_z(xbar = 249.8, mu0 = 250, sigma = 6, n = 100000)
+), caption = "Selisih 0,2 gram: tidak signifikan vs sangat signifikan")
+```
+
+Selisih 0,2 gram per kemasan (0,08%) kemungkinan tidak penting secara praktis, meskipun signifikan secara statistik pada n = 100.000. Karena itu, selalu laporkan besar efek (selisih dan selang kepercayaannya), bukan hanya p-value.
+
+### Miskonsepsi tentang P-Value
+
+
+```{r}
+# Tabel Pemahaman P-value
+
+library(knitr)
+
+tabel_pvalue <- data.frame(
+  Pernyataan = c(
+    "p = 0,016 berarti peluang H₀ benar adalah 1,6%.",
+    "p = 0,016 berarti peluang hasil ini terjadi karena kebetulan adalah 1,6%.",
+    "p > 0,05 membuktikan tidak ada efek.",
+    "p yang lebih kecil berarti efeknya lebih besar.",
+    "p = 0,049 dan p = 0,051 memberi bukti yang sangat berbeda.",
+    "Jika H₀ benar, p-value kurang dari 0,05 terjadi sekitar 5% dari waktu."
+  ),
+
+  `Benar/Salah` = c(
+    "Salah",
+    "Salah",
+    "Salah",
+    "Salah",
+    "Salah",
+    "Benar"
+  ),
+
+  Penjelasan = c(
+    "P-value dihitung dengan asumsi H₀ benar; ia bukan peluang H₀ benar.",
+    "Sama dengan di atas, dengan kata-kata berbeda.",
+    "Bisa jadi power rendah (sampel kecil).",
+    "P-value dipengaruhi besar efek dan ukuran sampel.",
+    "Keduanya menunjukkan kekuatan bukti yang hampir sama.",
+    "Inilah makna α."
+  ),
+
+  check.names = FALSE
+)
+
+knitr::kable(
+  tabel_pvalue,
+  format = "pipe",
+  align = "lll",
+  caption = "Tabel Pemahaman P-value",
+  escape = FALSE
+)
+```
+
+### Bahaya Uji Berganda (P-Hacking)
+
+Jika kita menguji banyak hipotesis sekaligus – atau mencoba banyak cara analisis sampai ada yang “signifikan” – peluang setidaknya satu kesalahan Tipe I melonjak.
+
+```{r}
+k <- c(1, 5, 10, 20, 50)
+data.frame(Banyak_uji = k, P_minimal_satu_false_positive = round(1 - (1 - 0.05)^k, 3))
+```
+
+```{r}
+set.seed(103)
+# 20 "fitur" acak tanpa hubungan apa pun dengan target, masing-masing diuji
+p20 <- replicate(20, { x <- rnorm(30, 0, 1); 2 * (1 - pnorm(abs(mean(x) / (1 / sqrt(30))))) })
+sum(p20 <= 0.05)
+```
+
+Dengan 20 uji independen, peluang setidaknya satu hasil “signifikan” padahal semua H0 benar
+adalah sekitar 64%. Solusi sederhana adalah koreksi Bonferroni: pakai α/k untuk setiap uji
+(misalnya 0,05/20 = 0,0025), atau tetapkan satu hipotesis utama sebelum melihat data.
+
+```{r}
+sum(p20 <= 0.05 / 20)
+```
+
+```{r}
+p.adjust(sort(p20)[1:3], method = "bonferroni", n = 20)
+```
+
+## Studi Kasus Komprehensif: Kepatuhan Baku Mutu TSS
+
+Konteks: Sebuah perusahaan membuang air olahan ke sungai dengan baku mutu TSS (misalnya)
+50 mg/L untuk rata-rata bulanan. Regulator mengambil 30 sampel acak dalam sebulan. Dari
+pemantauan panjang, simpangan baku pengukuran diketahui σ = 12 mg/L.
+
+```{r}
+set.seed(2026)
+tss <- round(rnorm(30, mean = 54, sd = 12), 1)
+round(c(n = length(tss), Mean = mean(tss), SD = sd(tss), Median = median(tss)), 2)
+```
+
+### Langkah 1: Merumuskan Hipotesis – Siapa yang Menanggung Beban Pembuktian?
+
+Ada dua cara merumuskan hipotesis, dan pilihannya bukan sekadar teknis:
+
+```{r}
+# Tabel Rumusan Hipotesis H0 dan H1
+
+library(knitr)
+
+tabel_hipotesis <- data.frame(
+  `Rumusan` = c(
+    "A (praduga patuh)",
+    "B (praduga melanggar)"
+  ),
+  `H0` = c(
+    "μ ≤ 50",
+    "μ ≥ 50"
+  ),
+  `H1` = c(
+    "μ > 50",
+    "μ < 50"
+  ),
+  `Artinya` = c(
+    "Perusahaan dianggap patuh sampai ada bukti kuat melanggar",
+    "Perusahaan harus membuktikan dirinya patuh"
+  ),
+  check.names = FALSE
+)
+
+knitr::kable(
+  tabel_hipotesis,
+  format = "pipe",
+  align = "llll",
+  caption = "Tabel Rumusan H0 dan H1",
+  escape = FALSE
+)
+```
+
+### Langkah 2–4: Menjalankan Kedua Rumusan
+
+```{r}
+kable(rbind(
+"A: H1 mu > 50 (melanggar)" = uji_z(mean(tss), 50, sigma = 12, n = 30, arah = "kanan"),
+"B: H1 mu < 50 (patuh)" = uji_z(mean(tss), 50, sigma = 12, n = 30, arah = "kiri")
+), caption = "Data yang sama, dua rumusan hipotesis")
+```
+
+```{r}
+# Tabel 16: Data yang Sama, Dua Rumusan Hipotesis
+
+library(knitr)
+
+tabel_16 <- data.frame(
+  Rumusan = c(
+    "A: H1 mu > 50 (melanggar)",
+    "B: H1 mu < 50 (patuh)"
+  ),
+  z = c(
+    1.4286,
+    1.4286
+  ),
+  z_kritis = c(
+    1.6449,
+    -1.6449
+  ),
+  p_value = c(
+    0.07655,
+    0.92340
+  ),
+  keputusan = c(
+    "Gagal menolak H0",
+    "Gagal menolak H0"
+  ),
+  check.names = FALSE
+)
+
+knitr::kable(
+  tabel_16,
+  format = "pipe",
+  align = "lrrrr",
+  caption = "Table 16: Data yang Sama, Dua Rumusan Hipotesis",
+  digits = 5
+)
+```
+
+### Langkah 5: Konsekuensi Kesalahan
+
+```{r}
+# Tabel Kesalahan Tipe I dan Tipe II
+
+library(knitr)
+
+tabel_kesalahan <- data.frame(
+  Rumusan = c(
+    "A",
+    "B"
+  ),
+  `Kesalahan Tipe I` = c(
+    "Perusahaan patuh dinyatakan melanggar (sanksi tidak adil)",
+    "Perusahaan melanggar dinyatakan patuh (lingkungan dirugikan)"
+  ),
+  `Kesalahan Tipe II` = c(
+    "Pelanggaran lolos (lingkungan dirugikan)",
+    "Perusahaan patuh gagal membuktikan kepatuhannya"
+  ),
+  check.names = FALSE
+)
+
+knitr::kable(
+  tabel_kesalahan,
+  format = "pipe",
+  align = "lll",
+  caption = "Tabel Kesalahan Tipe I dan Tipe II",
+  escape = FALSE
+)
+```
+
+```{r}
+# Power rumusan A untuk mendeteksi pelanggaran nyata sebesar 5 mg/L (mu = 55)
+power_kanan <- function(mu_benar, mu0, sigma, n, alpha = 0.05)
+1 - pnorm(qnorm(1 - alpha) - (mu_benar - mu0) / (sigma / sqrt(n)))
+round(c(Power_n30 = power_kanan(55, 50, 12, 30), Power_n60 = power_kanan(55, 50, 12, 60)), 3)
+```
+
+### Pertanyaan Diskusi dan Jawaban
+
+1. Apa kesimpulan rumusan A?
+
+P-value = 0.0766. Pada taraf 5% bukti belum cukup untuk menyatakan rata-rata TSS melebihi 50
+mg/L, meskipun rata-rata sampel di atas baku mutu.
+
+2. Mengapa rumusan B lebih “protektif” terhadap lingkungan?
+
+Pada rumusan B, kesalahan yang dikendalikan ketat (α = 5%) adalah menyatakan patuh pada-
+hal melanggar. Beban pembuktian ada pada perusahaan: rata-rata sampel harus cukup jauh di bawah 50 mg/L agar dinyatakan patuh. Pada data ini, rumusan B jelas gagal membuktikan
+kepatuhan.
+
+3. Mengapa power penting bagi regulator?
+
+Dengan rumusan A dan n = 30, pelanggaran nyata sebesar 5 mg/L hanya terdeteksi sekitar 74%
+dari waktu. Sisanya lolos. Menambah sampel menjadi 60 menaikkan power menjadi sekitar 94%.
+Keputusan jumlah sampel pemantauan adalah keputusan tentang seberapa sering pelanggaran
+boleh lolos.
+
+4. Apa pelajaran umumnya?
+Rumusan H0 menentukan siapa yang diuntungkan oleh keraguan. Pilihan itu harus didasarkan
+pada konsekuensi kesalahan di dunia nyata, ditetapkan sebelum data dilihat, dan dilaporkan secara
+terbuka.
+
+## Latihan Mandiri
+
+10.1 Latihan Utama: Umur Baterai Ponsel
+Konteks: Produsen mengklaim baterai ponselnya bertahan rata-rata 20 jam pemakaian normal.
+Lembaga konsumen menguji 40 unit. Dari spesifikasi pengujian standar, σ = 2,5 jam.
+
+```{r}
+set.seed(3)
+umur <- round(rnorm(40, mean = 19.3, sd = 2.5), 1)
+round(c(n = length(umur), Mean = mean(umur), SD = sd(umur)), 3)
+```
+
+#### Tugas 1: Rumuskan hipotesis
+
+Lembaga konsumen curiga umur baterai kurang dari yang diklaim.
+
+Jawaban: H0∶ μ ≥ 20 jam (klaim benar); H1∶ μ < 20 jam (klaim berlebihan). Uji satu arah kiri.
+
+#### Tugas 2: Hitung statistik uji, nilai kritis, dan p-value (α = 0,05)
+
+```{r}
+hasil_lat <- uji_z(mean(umur), mu0 = 20, sigma = 2.5, n = 40, arah = "kiri")
+hasil_lat
+```
+
+#### Tugas 3: Ambil keputusan dan tuliskan kesimpulan dalam konteks
+
+Jawaban: statistik uji z = -2.1251 dengan p-value 0.01679. Karena p-value kurang dari 0,05, H0 ditolak: terdapat bukti yang cukup bahwa rata-rata umur baterai kurang dari 20 jam seperti yang diklaim.
+
+#### Tugas 4: Bagaimana keputusannya jika α = 0,01?
+
+```{r}
+uji_z(mean(umur), mu0 = 20, sigma = 2.5, n = 40, arah = "kiri", alpha = 0.01)
+```
+
+Jawaban: pada α = 0,01 nilai kritisnya -2.326, sehingga keputusannya menjadi Gagal menolak
+H0. Keputusan dapat berubah menurut α – itulah sebabnya α harus ditetapkan sebelum melihat
+data, dan p-value sebaiknya dilaporkan apa adanya agar pembaca dapat menilai sendiri kekuatan
+buktinya.
+
+#### Tugas 5: Jelaskan kesalahan Tipe I dan II dalam konteks ini
+
+Jawaban: Tipe I – lembaga menyatakan klaim produsen berlebihan padahal baterai sebenarnya
+bertahan rata-rata 20 jam (merugikan reputasi produsen). Tipe II – lembaga menyatakan tidak
+ada bukti klaim berlebihan padahal baterai sebenarnya bertahan kurang dari 20 jam (merugikan
+konsumen).
+
+#### Tugas 6 (Tantangan): Power dan ukuran sampel
+
+Hitung power uji ini untuk mendeteksi umur sebenarnya 19 jam, lalu tentukan n agar power-nya
+90%.
+
+```{r}
+power_kiri <- function(mu_benar, mu0, sigma, n, alpha = 0.05)
+pnorm(qnorm(alpha) - (mu_benar - mu0) / (sigma / sqrt(n)))
+round(power_kiri(19, 20, 2.5, 40), 3)
+```
+
+```{r}
+ceiling(((qnorm(0.95) + qnorm(0.90)) * 2.5 / 1)^2) # n satu arah, power 90%
+```
+
+Jawaban: dengan 40 unit, selisih 1 jam terdeteksi sekitar 81% dari waktu. Untuk power 90%
+dibutuhkan sekitar 54 unit.
+
+### Latihan Tambahan (Self-Check)
+
+Kerjakan soal-soal berikut secara mandiri sebelum melihat kunci jawaban pada komentar kode.
+
+Soal A. Tuliskan H0 dan H1: (1) Apakah rata-rata waktu respons server berubah dari 200 ms
+setelah pembaruan? (2) Apakah pelatihan menaikkan rata-rata skor tes di atas 70? (3) Apakah
+rata-rata kadar gula minuman kurang dari 10 g seperti label?
+
+```{r}
+# Kunci jawaban:
+# (1) H0: mu = 200 vs H1: mu != 200 (dua arah)
+# (2) H0: mu <= 70 vs H1: mu > 70 (kanan)
+# (3) Jika pemeriksa ingin membuktikan label benar: H0: mu >= 10 vs H1: mu < 10 (kiri).
+# Jika pemeriksa curiga kadar gula melebihi label: H0: mu <= 10 vs H1: mu > 10 (kanan).
+# Rumusan bergantung pada klaim yang ingin dibuktikan.
+```
+
+Soal B. Uji dua arah menghasilkan z = 1,80. Hitung p-value dan keputusan pada α = 0,05 dan
+0,10. Bagaimana jika ujinya satu arah kanan?
+
+```{r}
+# Kunci jawaban:
+2 * (1 - pnorm(1.80)) # 0.0719 -> gagal tolak (0.05), tolak (0.10)
+1 - pnorm(1.80) # 0.0359 -> tolak pada 0.05 (jika arah kanan ditetapkan SEBELUM melihat data)
+```
+
+Soal C. Seorang analis melaporkan: “p-value = 0,23, jadi terbukti kampanye iklan tidak berpen-
+garuh terhadap penjualan.” Kritik pernyataan ini.
+
+```{r}
+# Kunci jawaban:
+# "Gagal menolak H0" bukan bukti H0 benar. P-value 0,23 hanya berarti data tidak memberi bukti
+# yang cukup untuk menyatakan ada pengaruh. Mungkin pengaruhnya kecil dan power uji rendah
+# (sampel kecil). Laporkan selang kepercayaan besar efek untuk melihat rentang pengaruh
+# yang masih masuk akal.
+```
+
+Soal D. Sebuah tim menguji 15 variasi warna tombol terhadap warna lama, masing-masing dengan
+α = 0,05, dan melaporkan satu variasi yang “signifikan” (p = 0,03). Berapa peluang setidaknya satu
+hasil signifikan jika sebenarnya tidak ada variasi yang lebih baik? Apakah temuan itu meyakinkan
+dengan koreksi Bonferroni?
+
+```{r}
+# Kunci jawaban:
+1 - 0.95^15 # sekitar 0.537 -> lebih dari separuh kemungkinan ada "temuan" palsu
+0.05 / 15 # batas Bonferroni = 0.0033; p = 0.03 > 0.0033 -> TIDAK signifikan setelah koreksi
+```
+
+## Kesalahan Umum dalam Uji Hipotesis
+
+1. Menulis hipotesis tentang statistik sampel (H0∶ ̄x = 250) – hipotesis selalu tentang parameter.
+
+2. Menaruh kesamaan di H1 – tanda =, ≤, ≥ selalu berada di H0.
+
+3. Memilih arah uji setelah melihat data – p-value menjadi tidak sah.
+
+4. “Menerima H0” – yang benar adalah “gagal menolak H0”; ketiadaan bukti bukan bukti ketiadaan.
+
+5. Menafsirkan p-value sebagai peluang H0 benar.
+
+6. Menyamakan signifikansi statistik dengan kepentingan praktis – selalu laporkan besar efek dan CI.
+
+7. Menetapkan α setelah melihat p-value agar hasilnya “signifikan”.
+
+8. Menguji banyak hipotesis tanpa koreksi – peluang false positive melonjak.
+
+9. Mengabaikan power – studi dengan sampel kecil sering gagal mendeteksi efek nyata, lalu
+disimpulkan “tidak ada efek”.
+
+10. Hanya menulis “tolak H0” tanpa kesimpulan dalam konteks – pembaca perlu tahu
+artinya bagi masalah nyata.
+
+11. Mengabaikan konsekuensi dunia nyata saat merumuskan H0 – rumusan menentukan
+siapa yang diuntungkan oleh keraguan.
+
+## Cheat Sheet: Fungsi R yang Digunakan
+
+
+```{r}
+# Tabel Fungsi dan Kegunaan dalam Pengujian Hipotesis
+
+library(knitr)
+
+tabel_fungsi <- data.frame(
+  Fungsi = c(
+    "qnorm(1 - alpha/2), qnorm(1 - alpha), qnorm(alpha)",
+    "pnorm(z)",
+    "2 * (1 - pnorm(abs(z)))",
+    "1 - pnorm(z) / pnorm(z)",
+    "dnorm(x)",
+    "polygon()",
+    "match.arg(), switch()",
+    "replicate(B, ...)",
+    "p.adjust(p, method = 'bonferroni')",
+    "ceiling()",
+    "ifelse(p <= alpha, ...)"
+  ),
+
+  Kegunaan = c(
+    "Nilai kritis z dua arah, kanan, kiri",
+    "P(Z ≤ z); dasar p-value",
+    "P-value dua arah",
+    "P-value satu arah kanan / kiri",
+    "Kurva normal untuk menggambar daerah penolakan",
+    "Mengarsir daerah di bawah kurva",
+    "Memilih arah uji dalam fungsi buatan",
+    "Simulasi kesalahan Tipe I dan power",
+    "Koreksi uji berganda",
+    "Membulatkan ukuran sampel ke atas",
+    "Menuliskan keputusan otomatis"
+  ),
+
+  check.names = FALSE
+)
+
+knitr::kable(
+  tabel_fungsi,
+  format = "pipe",
+  align = "ll",
+  caption = "Tabel Fungsi dan Kegunaan",
+  escape = TRUE
+)
+```
+
+## Glosarium Istilah
+
+```{r}
+# Tabel Istilah dan Definisi Singkat
+
+library(knitr)
+
+tabel_istilah <- data.frame(
+  Istilah = c(
+    "Hipotesis",
+    "Hipotesis Nol (H0)",
+    "Hipotesis Alternatif (H1)",
+    "Uji Dua Arah / Satu Arah",
+    "Tingkat Signifikansi (α)",
+    "Statistik Uji",
+    "Nilai Kritis",
+    "Daerah Penolakan",
+    "P-Value",
+    "Tolak H0",
+    "Gagal Menolak H0",
+    "Kesalahan Tipe I",
+    "Kesalahan Tipe II",
+    "β",
+    "Power",
+    "Besar Efek",
+    "Signifikansi Praktis",
+    "Uji Berganda",
+    "Koreksi Bonferroni"
+  ),
+
+  `Definisi Singkat` = c(
+    "Pernyataan tentang parameter populasi",
+    "Pernyataan tidak ada efek/perbedaan; diasumsikan benar selama uji",
+    "Klaim yang ingin dibuktikan; diterima bila bukti kuat",
+    "Uji dengan daerah penolakan di kedua ekor / satu ekor",
+    "Batas peluang kesalahan Tipe I",
+    "Ukuran jarak estimasi dari nilai H0 dalam satuan SE",
+    "Batas daerah penolakan",
+    "Rentang nilai statistik uji yang membuat H0 ditolak",
+    "Peluang hasil seekstrem atau lebih ekstrem dari yang teramati, jika H0 benar",
+    "Keputusan bahwa data memberi bukti cukup melawan H0",
+    "Keputusan bahwa bukti belum cukup; bukan pembuktian H0",
+    "Menolak H0 yang benar (false positive)",
+    "Gagal menolak H0 yang salah (false negative)",
+    "Peluang kesalahan Tipe II",
+    "1 − β; peluang mendeteksi efek yang benar-benar ada",
+    "Ukuran seberapa besar perbedaan/efek, terlepas dari ukuran sampel",
+    "Apakah besar efek cukup penting di dunia nyata",
+    "Melakukan banyak uji sekaligus sehingga peluang false positive naik",
+    "Memakai α/k untuk setiap dari k uji"
+  ),
+
+  check.names = FALSE
+)
+
+knitr::kable(
+  tabel_istilah,
+  format = "pipe",
+  align = "ll",
+  caption = "Tabel Istilah dan Definisi Singkat",
+  escape = TRUE
+)
+```
+
+## Rangkuman dan Kesimpulan
+
+1. Logika uji hipotesis sama dengan pengadilan: asumsikan H0 benar, lalu nilai seberapa
+mengejutkan data; tolak H0 hanya jika bukti kuat.
+
+2. Hipotesis dinyatakan tentang parameter; H0 selalu memuat kesamaan; arah uji ditentukan dari pertanyaan penelitian sebelum melihat data.
+
+3. Statistik uji mengukur jarak estimasi dari H0 dalam satuan SE. Keputusan dapat diambil
+dengan nilai kritis atau p-value – keduanya setara.
+
+4. P-value adalah peluang hasil seekstrem ini jika H0 benar – bukan peluang H0 benar.
+
+5. Kesalahan Tipe I (α) dan Tipe II (β) saling tarik-menarik; hanya sampel lebih besar
+yang dapat mengurangi keduanya sekaligus. Rancang studi dengan power memadai.
+
+6. Signifikan secara statistik belum tentu penting secara praktis; laporkan besar efek
+dan selang kepercayaan, dan waspadai uji berganda.
+
+Jembatan ke sesi berikutnya: hari ini kita memakai uji z dengan σ diketahui sebagai kendaraan
+untuk memahami konsep. Pertemuan 11 membahas situasi yang jauh lebih sering dijumpai – σ
+tidak diketahui – dengan uji t satu sampel, dua sampel independen, dan berpasangan, beserta uji z dua sampel.
+
+## Referensi Pendukung
+
+Materi ini merangkum konsep dasar uji hipotesis (fundamentals of hypothesis testing) yang umum
+dibahas pada buku teks pengantar statistika bisnis/data science. Mahasiswa disarankan melengkapi
+pemahaman dengan merujuk pada:
+
+• Modul/slide perkuliahan “Introduction to Statistics (SDT-1102)” – Pertemuan 10: Konsep
+dan Uji Hipotesis.
+
+• Wasserstein, R. L., & Lazar, N. A. (2016). The ASA Statement on p-Values: Context, Process,
+and Purpose. The American Statistician, 70(2), 129–133.
+
+• Buku teks pengantar statistika pada bab Fundamentals of Hypothesis Testing: One-Sample
+Tests.
+
+• Dokumentasi resmi R: ?pnorm, ?qnorm, ?p.adjust, ?polygon (dapat diakses langsung di
+R/RStudio).

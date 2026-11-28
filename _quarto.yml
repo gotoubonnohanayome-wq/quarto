@@ -9,7 +9,7 @@ project:
 
 book:
   title: "Quarto Template"
-  author: "Bakti Siregar, M.Sc."
+  author: "Muhammad Fathir Firdaus"
   date: today
   description: "Deskripsi singkat tentang buku"
   cover-image: images/Cover.png
@@ -52,7 +52,7 @@ format:
     include-after-body: assets/hover-preview.html
     include-in-header:
       text: |
-        <meta name="author" content="Bakti Siregar, M.Sc.">
+        <meta name="author" content="Muhammad Fathir Firdaus">
   pdf:
     documentclass: book
     pdf-engine: xelatex
